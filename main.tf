@@ -3,7 +3,7 @@ provider "aws" {}
 resource "aws_security_group" "jenkins" {
   name        = "jenkins-ci-sg"
   description = "Jenkins CI security group"
-  vpc_id      = "${aws_vpc.default.id}"
+  vpc_id      = "${var.vpc_id}"
 
   # SSH access from anywhere
   ingress {
@@ -54,7 +54,7 @@ resource "aws_instance" "jenkins" {
   availability_zone = "${var.az_id}"
   subnet_id         = "${var.subnet_id}"
   key_name          = "${var.key_name}"
-  security_groups = ["${aws_security_group.default.name}"]
+  security_groups = ["${aws_security_group.jenkins.name}"]
   
   provisioner "remote-exec" {
     inline = [
