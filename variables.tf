@@ -8,37 +8,32 @@ variable "instance_type" {
   default = "t2.medium"
 }
 
-# CentOS 7
+# Amazon AMI
 variable "aws_ami" {
-  default = "ami-2bd53851"
+  default = "ami-8c1be5f6"
 }
 
 variable "key_name" {
   description = "Desired name of AWS key pair"
-  default = "jenkins_user"
+  default = "esn-devops"
 }
 
 variable "private_key_path" {
   description = "Enter the path to the SSH Private Key to run provisioner."
-  default = "/var/lib/jenkins/.ssh/id_rsa"
+  default = "/var/lib/jenkins/.ssh/esn-devops.pem"
 }
 
 variable "vpc_id" {
   description = "Production VPC ID"
-  default = "vpc-932cb8f6"
+  default = "vpc-0e628976"
 }
 
 variable "subnet_id" {
   description = "Subnet ID to use"
-  default = "subnet-adbc6cf4"
+  default = "subnet-a81b1b84"
 }
 
 variable "az_id" {
   description = "Availability Zone"
-  default = "us-east-1b"
-}
-
-variable "security_group" {
-  description = "Jenkins Security Group"
-  default = "sg-f7558f86"
+  default = "us-east-1d"
 }
