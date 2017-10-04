@@ -1,3 +1,3 @@
 output "instance_ip" {
-  value = ["${aws_instance.docker.*.private_ip}"]
+  value = ["${aws_instance.jenkins.*.private_ip}"]
 }
