@@ -37,3 +37,8 @@ variable "az_id" {
   description = "Availability Zone"
   default = "us-east-1d"
 }
+
+variable "security_group" {
+  description = "Security Group"
+  default = "sg-6c744e1f"
+}

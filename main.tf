@@ -1,43 +1,5 @@
 provider "aws" {}
 
-resource "aws_security_group" "jenkins" {
-  name        = "jenkins-ci-sg"
-  description = "Jenkins CI security group"
-  vpc_id      = "${var.vpc_id}"
-
-  # SSH access from anywhere
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["74.109.185.9/32"]
-  }
-
-  # HTTP access from the VPC
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["74.109.185.9/32"]
-  }
-
-  # HTTP access from the VPC
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["74.109.185.9/32"]
-  }
-
-  # outbound internet access
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_instance" "jenkins" {
   ami           = "${var.aws_ami}"
   instance_type = "${var.instance_type}"
@@ -54,7 +16,7 @@ resource "aws_instance" "jenkins" {
   availability_zone = "${var.az_id}"
   subnet_id         = "${var.subnet_id}"
   key_name          = "${var.key_name}"
-  security_groups = ["${aws_security_group.jenkins.name}"]
+  security_groups = ["${var.security_group}"]
   
   provisioner "remote-exec" {
     inline = [
