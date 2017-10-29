@@ -1,4 +1,6 @@
-provider "aws" {}
+provider "aws" {
+  region = "${var.aws_region}"
+}
 
 resource "aws_security_group" "jenkins" {
   name        = "jenkins-sg"
