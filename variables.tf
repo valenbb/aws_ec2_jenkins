@@ -18,7 +18,7 @@ variable "key_name" {
   default = "esn-devops"
 }
 
-variable "private_key_path" {
+variable "ssh_key_filename" {
   description = "Enter the path to the SSH Private Key to run provisioner."
   default = "/var/lib/jenkins/.ssh/esn-devops.pem"
 }
@@ -38,7 +38,7 @@ variable "az_id" {
   default = "us-east-1d"
 }
 
-variable "security_group" {
-  description = "Security Group"
-  default = "sg-6c744e1f"
-}
+#variable "security_group" {
+#  description = "Security Group"
+#  default = "sg-6c744e1f"
+#}

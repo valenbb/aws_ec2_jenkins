@@ -1,9 +1,49 @@
 provider "aws" {}
 
+resource "aws_security_group" "jenkins" {
+  name        = "jenkins-sg"
+  description = "Security group for Jenkins"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["74.109.185.9/32"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["74.109.185.9/32"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["74.109.185.9/32"]
+  }
+
+  egress {
+   from_port = 0
+   to_port = 0
+   protocol = "-1"
+   cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "jenkins-sg"
+    owner = "alalla"
+    env = "dev"
+    app = "jenkins"
+    Builder = "Terraform"
+  }
+}
+
 resource "aws_instance" "jenkins" {
   ami           = "${var.aws_ami}"
   instance_type = "${var.instance_type}"
-  associate_public_ip_address = "false"
 
   tags {
     Name = "jenkins"
@@ -16,18 +56,7 @@ resource "aws_instance" "jenkins" {
   availability_zone = "${var.az_id}"
   subnet_id         = "${var.subnet_id}"
   key_name          = "${var.key_name}"
-  security_groups = ["${var.security_group}"]
+  security_groups = ["${aws_security_group.jenkins.id}"]
+  user_data       = "${file("jenkins.sh")}"
   
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum update -y",
-      "sudo yum install java-1.8.0",
-      "sudo yum remove java-1.7.0-openjdk",
-      "sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo",
-      "sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key",
-      " sudo yum install jenkins -y",
-      "sudo service jenkins start"
-
-    ]
-  }
 }
