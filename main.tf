@@ -58,7 +58,7 @@ resource "aws_instance" "jenkins" {
   availability_zone = "${var.az_id}"
   subnet_id         = "${var.subnet_id}"
   key_name          = "${var.key_name}"
-  security_groups = ["${aws_security_group.jenkins.id}"]
+  vpc_security_group_ids = ["${aws_security_group.jenkins.id}"]
   user_data       = "${file("jenkins.sh")}"
   
 }
