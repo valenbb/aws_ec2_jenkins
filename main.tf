@@ -5,6 +5,7 @@ provider "aws" {
 resource "aws_security_group" "jenkins" {
   name        = "jenkins-sg"
   description = "Security group for Jenkins"
+  vpc_id      = "${var.vpc_prod_id}"
 
   ingress {
     from_port   = 80

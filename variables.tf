@@ -23,7 +23,7 @@ variable "ssh_key_filename" {
   default = "/var/lib/jenkins/.ssh/esn-devops.pem"
 }
 
-variable "vpc_id" {
+variable "vpc_prod_id" {
   description = "Production VPC ID"
   default = "vpc-0e628976"
 }
