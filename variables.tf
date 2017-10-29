@@ -30,15 +30,10 @@ variable "vpc_prod_id" {
 
 variable "subnet_id" {
   description = "Subnet ID to use"
-  default = "subnet-a81b1b84"
+  default = "subnet-a8181884"
 }
 
 variable "az_id" {
   description = "Availability Zone"
   default = "us-east-1d"
 }
-
-#variable "security_group" {
-#  description = "Security Group"
-#  default = "sg-6c744e1f"
-#}

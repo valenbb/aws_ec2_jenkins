@@ -8,6 +8,13 @@ resource "aws_security_group" "jenkins" {
   vpc_id      = "${var.vpc_prod_id}"
 
   ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["74.109.185.9/32"]
+  }
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
